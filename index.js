@@ -1,22 +1,26 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require('cors')
+const cors = require("cors");
 
 const { dbConnection } = require("./db/config");
 
 const app = express();
-app.use(cors())
 
+// Middlewares
+// CORS config
+app.use(cors());
+// Read and parse JSON
+app.use(express.json());
+
+// DB connection
 dbConnection();
 
-app.get("/", (req, resp) => {
-  resp.json({
-    ok: true,
-    msg: "Hola mundo",
-  });
-});
+// Routes
+app.use("/api/users", require("./routes/users.routes"));
+app.use("/api/login", require("./routes/auth.routes"));
 
+// Server up
 app.listen(process.env.PORT, () => {
   console.log("Server up in port:", process.env.PORT);
 });
