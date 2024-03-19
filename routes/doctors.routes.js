@@ -18,7 +18,16 @@ const router = Router();
 
 router.get("/", [], getDoctors);
 router.get("/:id", [], getDoctorById);
-router.post("/", [], createDoctor);
+router.post(
+  "/",
+  [
+    validateJWT,
+    check("name", "Doctor name required").not().isEmpty(),
+    check("hospital", "Must be a valid ID").isMongoId(),
+    validateFields,
+  ],
+  createDoctor
+);
 router.put("/:id", [], updateDoctor);
 router.delete("/:id", [], deleteDoctor);
 

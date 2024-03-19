@@ -18,7 +18,15 @@ const router = Router();
 
 router.get("/", [], getHospitals);
 router.get("/:id", [], getHospitalById);
-router.post("/", [], createHospital);
+router.post(
+  "/",
+  [
+    validateJWT,
+    check("name", "Hospital name required").not().isEmpty(),
+    validateFields,
+  ],
+  createHospital
+);
 router.put("/:id", [], updateHospital);
 router.delete("/:id", [], deleteHospital);
 

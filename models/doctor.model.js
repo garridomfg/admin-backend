@@ -11,17 +11,17 @@ const DoctorSchema = Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   hospital: {
     type: Schema.Types.ObjectId,
     ref: "Hospital",
+    required: true,
   },
 });
 
-UserSchema.method("toJSON", function () {
-  const { __v, _id, password, ...object } = this.toObject();
-
-  object.uid = _id;
+DoctorSchema.method("toJSON", function () {
+  const { __v, ...object } = this.toObject();
   return object;
 });
 
