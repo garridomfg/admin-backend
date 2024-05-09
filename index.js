@@ -10,6 +10,10 @@ const app = express();
 // Middlewares
 // CORS config
 app.use(cors());
+
+// Public folder
+app.use(express.static("public"));
+
 // Read and parse JSON
 app.use(express.json());
 
